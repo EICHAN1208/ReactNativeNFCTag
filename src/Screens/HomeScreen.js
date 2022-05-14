@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Button, Alert} from 'react-native';
 import NfcManager, {NfcEvents, NfcTech} from 'react-native-nfc-manager';
 
 function HomeScreen(props) {
+  const {navigation} = props;
   const [hasNfc, setHasNfc] = useState(null);
 
   useEffect(() => {
@@ -37,15 +38,15 @@ function HomeScreen(props) {
       });
   };
 
+  const writeNdef = async () => {
+    navigation.navigate('NdefTypeList');
+  };
+
   return (
     <View style={styles.wrapper}>
       <Text>Hello NFC</Text>
-      <Button
-        onPress={readTag}
-        title="Read Tag"
-        color="blue"
-        accessibilityLabel="Learn more about this purple button"
-      />
+      <Button onPress={readTag} title="Read Tag" />
+      <Button onPress={writeNdef} title="Write Tag List" />
     </View>
   );
 }
