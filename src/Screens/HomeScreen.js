@@ -19,7 +19,7 @@ function HomeScreen(props) {
   } else if (!hasNfc) {
     return (
       <View style={styles.wrapper}>
-        <Text>You device doesn't support NFC</Text>
+        <Text>デバイスがNFCをサポートしていません</Text>
       </View>
     );
   }

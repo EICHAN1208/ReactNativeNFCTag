@@ -1,8 +1,15 @@
 import * as React from 'react';
-import {Text} from 'react-native';
+import {Text, Button} from 'react-native';
 
-function NdefTypeListScreen() {
-  return <Text>test</Text>;
+function NdefTypeListScreen(props) {
+  const {navigation} = props;
+
+  return (
+    <Button
+      onPress={() => navigation.navigate('NdefWrite', {ndefType: 'TEXT'})}
+      title="Write Text"
+    />
+  );
 }
 
 export default NdefTypeListScreen;
