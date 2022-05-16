@@ -11,11 +11,12 @@ import NfcManager, {Ndef, NfcError, NfcTech} from 'react-native-nfc-manager';
 
 function NdefWriteScreen() {
   const [text, setText] = useState('');
-  const writeNdef = () => {
-    (async () => {
-      if (!text) {
-        return;
-      }
+  const writeNdef = async () => {
+    if (!text) {
+      return;
+    }
+
+    try {
       await NfcManager.requestTechnology(NfcTech.Ndef, {
         alertMessage: '書き込む準備ができました',
       });
@@ -24,29 +25,26 @@ function NdefWriteScreen() {
 
       if (bytes) {
         await NfcManager.ndefHandler.writeNdefMessage(bytes);
-
         if (Platform.OS === 'ios') {
           await NfcManager.setAlertMessageIOS('Success');
         }
       }
-    })()
-      .catch(error => {
-        if (error instanceof NfcError.UserCancel) {
-          console.log('User Canceled');
-        } else if (error instanceof NfcError.Timeout) {
-          Alert.alert('NFC Session Timeout');
+    } catch (error) {
+      if (error instanceof NfcError.UserCancel) {
+        console.log('User Canceled');
+      } else if (error instanceof NfcError.Timeout) {
+        Alert.alert('NFC Session Timeout');
+      } else {
+        console.warn(error);
+        if (Platform.OS === 'ios') {
+          NfcManager.invalidateSessionWithErrorIOS(`${error}`);
         } else {
-          console.warn(error);
-          if (Platform.OS === 'ios') {
-            NfcManager.invalidateSessionWithErrorIOS(`${error}`);
-          } else {
-            Alert.alert('NFC Error', `${error}`);
-          }
+          Alert.alert('NFC Error', `${error}`);
         }
-      })
-      .finally(() => {
-        NfcManager.cancelTechnologyRequest();
-      });
+      }
+    } finally {
+      NfcManager.cancelTechnologyRequest();
+    }
   };
 
   return (
@@ -58,7 +56,11 @@ function NdefWriteScreen() {
           value={text}
           autoFocus={true}
         />
-        <Button title="WRITE" labelStyle={{fontSize: 20}} onPress={writeNdef} />
+        <Button
+          title="書き込む"
+          labelStyle={{fontSize: 20}}
+          onPress={writeNdef}
+        />
       </View>
     </>
   );

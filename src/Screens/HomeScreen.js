@@ -24,18 +24,18 @@ function HomeScreen(props) {
     );
   }
 
-  const readTag = () => {
-    (async () => {
-      await NfcManager.requestTechnology(NfcTech.Ndef);
+  const readTag = async () => {
+    try {
+      await NfcManager.requestTechnology(NfcTech.Ndef, {
+        alertMessage: '読み込む準備ができました',
+      });
       const tag = await NfcManager.getTag();
       console.warn('Tag found', tag);
-    })()
-      .catch(error => {
-        console.warn('Oops!', error);
-      })
-      .finally(() => {
-        NfcManager.cancelTechnologyRequest();
-      });
+    } catch (error) {
+      console.warn('Oops!', error);
+    } finally {
+      NfcManager.cancelTechnologyRequest();
+    }
   };
 
   const writeNdef = async () => {
@@ -44,9 +44,8 @@ function HomeScreen(props) {
 
   return (
     <View style={styles.wrapper}>
-      <Text>Hello NFC</Text>
-      <Button onPress={readTag} title="Read Tag" />
-      <Button onPress={writeNdef} title="Write Tag List" />
+      <Button onPress={readTag} title="タグ読み取り" />
+      <Button onPress={writeNdef} title="タグ書き込みのタイプリストを表示" />
     </View>
   );
 }

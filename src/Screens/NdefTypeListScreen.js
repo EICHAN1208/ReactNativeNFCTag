@@ -7,7 +7,7 @@ function NdefTypeListScreen(props) {
   return (
     <Button
       onPress={() => navigation.navigate('NdefWrite', {ndefType: 'TEXT'})}
-      title="Write Text"
+      title="テキストの書き込み"
     />
   );
 }
