@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './Screens/HomeScreen';
 import NdefTypeListScreen from './Screens/NdefTypeListScreen';
 import NdefWriteScreen from './Screens/NdefWriteScreen';
+import TagDetailScreen from './Screens/TagDetailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ function AppNavigator() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="NdefTypeList" component={NdefTypeListScreen} />
         <Stack.Screen name="NdefWrite" component={NdefWriteScreen} />
+        <Stack.Screen name="TagDetail" component={TagDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
