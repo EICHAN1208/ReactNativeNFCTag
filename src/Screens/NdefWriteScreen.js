@@ -17,6 +17,7 @@ function NdefWriteScreen() {
     }
 
     try {
+      // androidはUIを提供していない
       await NfcManager.requestTechnology(NfcTech.Ndef, {
         alertMessage: '書き込む準備ができました',
       });
@@ -27,6 +28,8 @@ function NdefWriteScreen() {
         await NfcManager.ndefHandler.writeNdefMessage(bytes);
         if (Platform.OS === 'ios') {
           await NfcManager.setAlertMessageIOS('Success');
+        } else {
+          Alert.alert('', `「${text}」を書き込みました`);
         }
       }
     } catch (error) {
