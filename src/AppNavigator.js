@@ -13,10 +13,26 @@ function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="NdefTypeList" component={NdefTypeListScreen} />
-        <Stack.Screen name="NdefWrite" component={NdefWriteScreen} />
-        <Stack.Screen name="TagDetail" component={TagDetailScreen} />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{title: 'Home'}}
+        />
+        <Stack.Screen
+          name="NdefTypeList"
+          component={NdefTypeListScreen}
+          options={{title: 'Ndef Type List'}}
+        />
+        <Stack.Screen
+          name="NdefWrite"
+          component={NdefWriteScreen}
+          options={{title: 'Write Ndef'}}
+        />
+        <Stack.Screen
+          name="TagDetail"
+          component={TagDetailScreen}
+          options={{title: 'Tag Detail'}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
