@@ -31,7 +31,7 @@ function HomeScreen(props) {
         alertMessage: '読み込む準備ができました',
       });
       const tag = await NfcManager.getTag();
-      console.warn('Tag found', tag);
+      console.log('Tag found', tag);
       if (tag) {
         navigation.navigate('TagDetail', {tag});
       }
